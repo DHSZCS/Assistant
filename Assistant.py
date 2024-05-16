@@ -34,7 +34,7 @@ while 🚩:
     # Ask for a response
     chat_completion = client.chat.completions.📞(
         messages=messages,
-        model='gpt-4-turbo',
+        model='gpt-4o',
     )
 
     # Get the response
