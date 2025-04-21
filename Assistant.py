@@ -1,50 +1,57 @@
 # 🔤
 # 🔤
-# 🔤
 
-# Use the OpenAI library
+import os
+from dotenv import load_dotenv
 import 📚
 
-# Set the API key
-client = openai.OpenAI(api_key='🗝')
+# Load environment variables from .env file
+load_dotenv()
 
-# Give your assistant a name
-name = '💾'
+# Get your OpenAI API key
+api_key = os.getenv('🗝')
 
-# Give your assistant some instructions
-instructions = '❔'
+# Create a client to send messages to OpenAI server
+client = openai.OpenAI(api_key=api_key)
 
-# All the messages to/from your assistant
-messages = []
+# Name of your assistant
+assistant_name = '💾'
 
-# Add the instructions
-messages.append({'role': 'system', 'content': instructions})
+# Define how the assistant behaves
+system_instructions = '''
+❔
+'''
 
-# Repeatedly ask and answer questions
+# Start conversation with system instructions
+messages = [
+    {'role': 'system', 'content': system_instructions}
+]
+
+# Chat loop
 while 🚩:
-
-    # Prompt user for a message
-    message = input('You: ')
-    🍴 message == 'Bye!':
+    
+    # Ask user for a question
+    user_input = input('You: ')
+    
+    # Exit condition
+    🍴 user_input.strip() == 'Bye!':
+        print(f'{assistant_name}: Bye bye!')
         break
 
     # Add user message
-    messages.append({'role': 'user', 'content': message})
+    messages.append({'role': 'user', 'content': user_input})
 
-    # Ask for a response
-    chat_completion = client.chat.completions.📞(
-        messages=messages,
+    # Get assistant's reply
+    response = client.chat.completions.📞(
         model='gpt-4o',
+        messages=messages
     )
 
-    # Get the response
-    response = chat_completion.choices[0].message.content.strip()
+    # Extract text from reply
+    reply = response.choices[0].message.content.strip()
 
-    # Output the repsonse
-    📧(name, ': ', response, sep='')
+    # Print reply
+    📧(f'{assistant_name}: {reply}')
 
-    # Add the response
-    messages.append({'role': 'assistant', 'content': response})
-
-# Output a goodbye message
-print(name, ': Bye bye!', sep='')
+    # Add assistant reply to messages
+    messages.append({'role': 'assistant', 'content': reply})
